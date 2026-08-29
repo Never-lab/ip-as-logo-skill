@@ -112,3 +112,7 @@ Constraints: Use no text or watermark. Add no borders, frames, cards, or present
 - Do not inspect or report alpha, transparency, or background mode by default.
 - Do not block delivery, rank candidates as compliant or non-compliant, mark them as recommended or non-recommended, or automatically retry any result because of its background, colors, detail, composition, gradient, shading, or dimensionality.
 - Do not post-process a result to make it appear more compliant. If the user later requests another direction or replacement, generate a new independent candidate in response to that explicit request.
+
+## Deterministic SVG companion (optional, non-fallback)
+
+A hand-coded SVG package lives in `generator/` (based on [mascot-avatars](https://github.com/otatechie/mascot-avatars)). Use it only when the user explicitly wants seed-based procedural SVG (for example game assets or offline avatars). Never substitute it for a missing image model, and never present SVG output as fulfilling an AI image-generation request from this skill.

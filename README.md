@@ -43,6 +43,17 @@ npx skills@latest add s1dashu/ip-as-logo-skill --global
 
 Supported agents include **Codex, Coze, Doubao, YouMind, Manus, Gemini Apps, and Replit Agent**. The agent must have a top-tier image model: preferably GPT Image 2, or Seedance 5.0 Pro, Nano Banana Pro (Gemini Image Pro), or Nano Banana 2 (Gemini Image Flash). If none is available, enable a suitable tool or provide its API key. The skill never falls back to SVG; another image model may be used only with explicit user consent, with no guarantee of equivalent quality.
 
+## Deterministic SVG companion (`generator/`)
+
+For seed-based SVG mascots (game assets, avatars, offline marks) without an image model, use the optional package in [`generator/`](./generator/). Same design language as the skill; deterministic; zero dependencies.
+
+```js
+const { renderAvatar } = require("./generator/avatar.js");
+const svg = renderAvatar({ seed: "player-42", species: "cat" });
+```
+
+This companion is **not** an AI fallback: agents must not substitute it when an image model is missing. It comes from [otatechie/mascot-avatars](https://github.com/otatechie/mascot-avatars) ([upstream discussion](https://github.com/s1dashu/ip-as-logo-skill/issues/1)).
+
 ## Use
 
 Ask your AI agent for an IP mascot image, for example:
@@ -74,13 +85,16 @@ Generation is intentionally treated as a creative draw. Each requested candidate
 ## Repository structure
 
 ```text
-SKILL.md
+SKILL.md                 # AI agent skill (image models only)
+generator/               # optional deterministic SVG companion
 assets/ip-as-logo-wall.webp
 README.md
 LICENSE
+AGENTS.md
+CLAUDE.md
 ```
 
-The skill itself intentionally consists of a single instruction document. The repository also includes the showcase image above, but no scripts, style references, or generation dependencies.
+The AI skill is a single instruction document plus showcase art. The `generator/` package is a separate, explicit opt-in for procedural SVG.
 
 ## Model behavior
 
